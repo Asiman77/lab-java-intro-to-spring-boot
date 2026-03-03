@@ -6,14 +6,24 @@ import com.ironhack.spring.model.Patient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.processing.Generated;
 import java.time.LocalDate;
 import java.util.*;
 
+@RestController
 public class HospitalController {
     private final HashMap<Long , Employee > employeeHashMap = new HashMap<Long, Employee>();
     private final HashMap<Long , Patient> patientHashMap = new HashMap<Long , Patient>();
+
+    private Date toDate(int year, int month, int day) {
+        Calendar cal = Calendar.getInstance();
+        cal.set(year, month - 1, day, 0, 0, 0);
+        cal.set(Calendar.MILLISECOND, 0);
+        return cal.getTime();
+    }
+
 
     public HospitalController() {
 
@@ -35,11 +45,12 @@ public class HospitalController {
 
 
 
-        Patient p1 = new Patient(1, "Jaime Jordan", 564134,new Date(Date.parse("1984-03-02")));
-        Patient p2 = new Patient(2, "Marian Garcia", 564134, new Date(Date.parse("1972-1-12")));
-        Patient p3 = new Patient(3, "Julia Dusterdieck", 356712, new Date(Date.parse("1954-6-11")));
-        Patient p4 = new Patient(4, "Steve McDuck", 761527, new Date(Date.parse("1931-11-10")));
-        Patient p5 = new Patient(5, "Marian Garcia", 172456, new Date(Date.parse("1999-22-15")));
+        Patient p1 = new Patient(1, "Jaime Jordan", 564134, toDate(1984, 3, 2));
+        Patient p2 = new Patient(2, "Marian Garcia", 564134, toDate(1972, 1, 12));
+        Patient p3 = new Patient(3, "Julia Dusterdieck", 356712, toDate(1954, 6, 11));
+        Patient p4 = new Patient(4, "Steve McDuck", 761527, toDate(1931, 11, 10));
+        Patient p5 = new Patient(5, "Marian Garcia", 172456, toDate(1999, 2, 15));
+
 
         patientHashMap.put(p1.getPatient_id() , p1);
         patientHashMap.put(p2.getPatient_id() , p2);
