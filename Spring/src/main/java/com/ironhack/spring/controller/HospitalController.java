@@ -91,7 +91,7 @@ public class HospitalController {
     }
 
     //According to Status
-    @GetMapping("/employees/doctors/{status}")
+    @GetMapping("/employees/doctors/OFF")
     public List<Employee> getEmployeesByStatus(@PathVariable Status status){
         List<Employee> employees = new ArrayList<>();
         for (Employee employee : employeeHashMap.values()){
