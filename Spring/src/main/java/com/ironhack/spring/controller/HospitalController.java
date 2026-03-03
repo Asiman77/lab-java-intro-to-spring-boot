@@ -91,16 +91,21 @@ public class HospitalController {
     }
 
     //According to Status
-    @GetMapping("/employees/doctors/OFF")
-    public List<Employee> getEmployeesByStatus(@PathVariable Status status){
-        List<Employee> employees = new ArrayList<>();
-        for (Employee employee : employeeHashMap.values()){
-            if(employee.getStatus() == status ){
-                employees.add(employee);
+    @GetMapping("/patients/doctor-status/off")
+    public List<Patient> getPatientsWithDoctorStatusOff() {
+
+        List<Patient> result = new ArrayList<>();
+
+        for (Patient patient : patientHashMap.values()) {
+
+            Employee doctor = employeeHashMap.get(patient.getAdmitted_by());
+
+            if (doctor != null && doctor.getStatus() == Status.OFF) {
+                result.add(patient);
             }
         }
-        return employees;
 
+        return result;
     }
 
     //Where Status is OFF
